@@ -17,11 +17,14 @@ def match_field(
     Returns:
         str: SQL query string.
     """
+    # Escape single quotes in input to prevent SQL injection
+    escaped_input = input.replace("'", "''")
+    
     if ignore_case:
-        input_expr = f"LOWER('{input}')"
+        input_expr = f"LOWER('{escaped_input}')"
         column_expr = f"LOWER({column})"
     else:
-        input_expr = f"'{input}'"
+        input_expr = f"'{escaped_input}'"
         column_expr = column
 
     # Exact match condition
